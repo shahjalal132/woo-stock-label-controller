@@ -62,7 +62,7 @@ class Wste_Metabox {
                     if ( isset( $_POST[$field['id']] ) ) {
                         $sanitized = sanitize_text_field( $_POST[$field['id']] );
                         update_post_meta( $post_id, $field['id'], $sanitized );
-                        update_post_meta( $post_id, '_stock_status', $sanitized );
+                        // update_post_meta( $post_id, '_stock_status', $sanitized );
                     }
             }
         }
@@ -170,4 +170,4 @@ class Wste_Metabox {
     }
 
 }
-new Wste_Metabox;
+// new Wste_Metabox;

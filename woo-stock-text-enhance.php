@@ -31,18 +31,39 @@ function custom_display_stock_status() {
     if ( $product->is_type( 'simple' ) ) {
 
         // Get stock quantity
+        $stock          = null;
         $stock_quantity = $product->get_stock_quantity();
-        $stock_quantity = $stock_quantity > 0 ? $stock_quantity : '';
 
         // Get availability status
         $availability       = $product->get_availability();
-        $availability_text  = !empty( $availability['availability'] ) ? $availability['availability'] : '';
+        $availability_text  = '';
         $availability_class = !empty( $availability['class'] ) ? $availability['class'] : '';
+
+        switch ($availability_class) {
+            case 'in-stock':
+                $availability_text = 'In Stock';
+                break;
+            case 'out-of-stock':
+                $availability_text = 'Coming Soon';
+                break;
+            case 'available-on-backorder':
+                $availability_text = 'Available to Order';
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        if ( 'in-stock' === $availability_class ) {
+            $stock = $stock_quantity;
+        }
+
+        // file_put_contents( PLUGIN_DIR_BASE_PATH . 'logs/logs.txt', "Availability: " . json_encode( $availability ) . "\n", FILE_APPEND );
 
         // Output quantity + status
         if ( $availability_text ) {
             echo '<div class="show-stock-quantity">';
-            echo '<p class="stock ' . esc_attr( $availability_class ) . '">' . esc_html( $stock_quantity ) . ' ' . esc_html( $availability_text ) . '</p>';
+            echo '<p class="stock-label ' . esc_attr( $availability_class ) . '">' . esc_html( $stock ) . ' ' . esc_html( $availability_text ) . '</p>';
             echo '</div><br>';
         }
     }

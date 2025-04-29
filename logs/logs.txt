@@ -1,1 +1,3 @@
-edit.php
+Availability: {"availability":"Coming Soon","class":"out-of-stock"}
+Availability: {"availability":"In Stock","class":"available-on-backorder"}
+Availability: {"availability":"In Stock","class":"in-stock"}
