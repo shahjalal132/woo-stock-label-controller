@@ -82,19 +82,5 @@ function custom_woocommerce_get_availability_text( $availability, $product ) {
     return $availability;
 }
 
-// enqueue assets
-function wste_enqueue_assets( $page_now ) {
-
-    // file_put_contents( PLUGIN_DIR_BASE_PATH . 'logs/logs', $page_now );
-    if ( 'post.php' == $page_now ) {
-        // enqueue admin js
-        wp_enqueue_script( "admin-script", PLUGIN_DIR_BASE_URL . "assets/admin/js/admin-scripts.js", [ 'jquery' ], time(), true );
-        // localize script to pass ajax url
-        wp_localize_script( 'admin-script', 'wste_ajax', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
-    }
-}
-add_action( 'admin_enqueue_scripts', 'wste_enqueue_assets' );
-
-
 // require metabox file.
 require_once PLUGIN_DIR_BASE_PATH . 'includes/class-wste-metabox.php';
