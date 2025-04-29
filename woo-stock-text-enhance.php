@@ -65,7 +65,6 @@ function custom_woocommerce_get_availability_text( $availability, $product ) {
 function wste_enqueue_assets( $page_now ) {
 
     // file_put_contents( PLUGIN_DIR_BASE_PATH . 'logs/logs', $page_now );
-
     if ( 'post.php' == $page_now ) {
         // enqueue admin js
         wp_enqueue_script( "admin-script", PLUGIN_DIR_BASE_URL . "assets/admin/js/admin-scripts.js", [ 'jquery' ], time(), true );
