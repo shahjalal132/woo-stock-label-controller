@@ -1,1 +1,19 @@
-{"title":"Status Lavel","description":"WooCommerce product status label controller.","prefix":"wste","domain":"wste","class_name":"Wste_Metabox","context":"normal","priority":"default","cpt":"product","fields":[{"type":"select","label":"Label","default":"Select","options":"in-stock : In Stock\r\ncoming-soon : Coming Soon \r\navailable-to-order : Available to Order\r\n","id":"wstelabel"}]}
+{
+    "title": "Status Lavel",
+    "description": "WooCommerce product status label controller.",
+    "prefix": "wste",
+    "domain": "wste",
+    "class_name": "Wste_Metabox",
+    "context": "normal",
+    "priority": "default",
+    "cpt": "product",
+    "fields": [
+        {
+            "type": "select",
+            "label": "Label",
+            "default": "Select",
+            "options": "instock : In Stock\r\noutofstock : Coming Soon \r\nonbackorder : Available to Order\r\n",
+            "id": "wstelabel"
+        }
+    ]
+}

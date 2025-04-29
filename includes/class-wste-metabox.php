@@ -8,9 +8,10 @@
  * Label = get_post_meta( get_the_ID(), 'wstelabel', true )
  */
 class Wste_Metabox {
-    private $config = '{"title":"Status Lavel","description":"WooCommerce product status label controller.","prefix":"wste","domain":"wste","class_name":"Wste_Metabox","context":"normal","priority":"default","cpt":"product","fields":[{"type":"select","label":"Label","default":"Select","options":"in-stock : In Stock\r\ncoming-soon : Coming Soon \r\navailable-to-order : Available to Order\r\n","id":"wstelabel"}]}';
+    private $config = '';
 
     public function __construct() {
+        $this->config = file_get_contents( PLUGIN_DIR_BASE_PATH . 'includes/metabox-config.json' );
         $this->config = json_decode( $this->config, true );
         $this->process_cpts();
         add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
@@ -61,6 +62,7 @@ class Wste_Metabox {
                     if ( isset( $_POST[$field['id']] ) ) {
                         $sanitized = sanitize_text_field( $_POST[$field['id']] );
                         update_post_meta( $post_id, $field['id'], $sanitized );
+                        update_post_meta( $post_id, '_stock_status', $sanitized );
                     }
             }
         }
