@@ -72,23 +72,25 @@ function wste_variable_product_stock_info() {
         $variation_data = [];
 
         foreach ( $variations as $variation ) {
-            $stock_qty       = $variation['max_qty'] ?? 0;
-            $is_in_stock     = $variation['is_in_stock'];
-            $is_on_backorder = $variation['backorders_allowed'] && !$variation['is_in_stock'];
+    $stock_qty       = $variation['max_qty'] ?? 0;
+    $is_in_stock     = $variation['is_in_stock'];
+    $is_on_backorder = $variation['backorders_allowed'];
+    $is_available_on_backorder = strpos( $variation['availability_html'], 'available-on-backorder' ) !== false;
 
-            if ( $is_in_stock ) {
-                $label = 'In Stock';
-            } elseif ( $is_on_backorder ) {
-                $label = 'Available to Order';
-            } else {
-                $label = 'Coming Soon';
-            }
+    if ( $is_available_on_backorder || $is_on_backorder ) {
+        $label = 'Available to Order';
+    } elseif ( $is_in_stock ) {
+        $label = 'In Stock';
+    } else {
+        $label = 'Coming Soon';
+    }
 
-            $variation_data[$variation['variation_id']] = [
-                'stock_qty' => $stock_qty,
-                'label'     => $label,
-            ];
-        }
+    $variation_data[$variation['variation_id']] = [
+        'stock_qty' => $stock_qty,
+        'label'     => $label,
+    ];
+}
+
 
         echo '<div id="wste-variation-stock-display" class="show-stock-quantity"></div>';
         echo '<script>
@@ -112,6 +114,8 @@ function wste_inline_script_for_variation_stock() {
                     let data = window.wste_variation_stock_data || {};
                     let stockBox = $('#wste-variation-stock-display');
                     let id = variation.variation_id;
+					
+					 // console.log(`variation: ${JSON.stringify(variation)}`);
 
                     if (data[id]) {
                         let qty = data[id].stock_qty;
